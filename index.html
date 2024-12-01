@@ -34,6 +34,12 @@
       .btn {
         margin-right: 10px;
       }
+      #bao-cao-thong-ke{
+        display: none;
+      }
+      .back{
+        padding: 0px 10px 0;
+      }
     </style>
   </head>
   <body>
@@ -41,7 +47,7 @@
       <h1 class="text-center my-4">Quản lý Sinh viên</h1>
 
       <!-- Quản lý điểm -->
-      <section id="quan-ly-diem" class="mb-5">
+      <section id="quan-ly-diem" class="mb-5 pb-5">
         <h2>Quản lý điểm</h2>
         <form id="student-form">
           <div class="mb-3">
@@ -79,12 +85,15 @@
           </thead>
           <tbody></tbody>
         </table>
+        <button onclick="showReport()" class="btn btn-primary float-end sticky-bottom">Tạo báo cáo và thống kê</button>
       </section>
+      
 
       <!-- Báo cáo và thống kê -->
       <section id="bao-cao-thong-ke">
+        <button onclick="backToScore()" class="btn btn-primary mb-2 back">⇦ </button>
         <h2>Báo cáo và thống kê</h2>
-        <button class="btn btn-secondary mb-2" id="generate-report">
+        <button class="btn btn-primary mb-2" id="generate-report">
           Tạo báo cáo
         </button>
         <div id="report-content"></div>
@@ -177,6 +186,7 @@
           renderTable();
         };
 
+        //report
         document
           .getElementById("generate-report")
           .addEventListener("click", () => {
@@ -219,6 +229,15 @@
 
         renderTable();
       });
+
+      function showReport(){
+        document.getElementById('quan-ly-diem').style.display='none';
+        document.getElementById('bao-cao-thong-ke').style.display='block';
+      }
+      function backToScore(){
+        document.getElementById('quan-ly-diem').style.display='block';
+        document.getElementById('bao-cao-thong-ke').style.display='none';
+      }
     </script>
   </body>
 </html>
