@@ -8,101 +8,193 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     />
-
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-      }
-
-      h1 {
-        color: #343a40;
-      }
-
-      section {
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-
-      .table th,
-      .table td {
-        vertical-align: middle;
-      }
-
-      .btn {
-        margin-right: 10px;
-      }
-      #bao-cao-thong-ke{
-        display: none;
-      }
-      .back{
-        padding: 0px 10px 0;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
-      <h1 class="text-center my-4">Quản lý Sinh viên</h1>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">ScoreMaster</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav m-auto">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" href="#">Hỏi Đáp</a>
+            <a class="nav-link" href="#">Phúc Khảo</a>
+            <a class="nav-link disabled" aria-disabled="true">Tuyên Dương</a>
+          </div>
+        </div>
+      </div>
+    </nav>
 
-      <!-- Quản lý điểm -->
-      <section id="quan-ly-diem" class="mb-5 pb-5">
-        <h2>Quản lý điểm</h2>
-        <form id="student-form">
-          <div class="mb-3">
-            <label for="studentName" class="form-label">Mã sinh viên</label>
-            <input type="text" class="form-control" id="studentName" required />
-          </div>
-          <div class="mb-3">
-            <label for="courseName" class="form-label">Tên môn học</label>
-            <input type="text" class="form-control" id="courseName" required />
-          </div>
-          <div class="mb-3">
-            <label for="studentScore" class="form-label">Điểm số</label>
-            <input
-              type="number"
-              class="form-control"
-              min="0"
-              max="10"
-              step="0.1"
-              id="studentScore"
-              required
-            />
-          </div>
-          <button type="submit" class="btn btn-primary">
-            Thêm / Cập nhật điểm
+    <!-- Quản lý điểm -->
+    <div id="score">
+      <div class="d-flex w-100 justify-content-around">
+        <section id="quan-ly-diem" class="mb-5 pb-5" style="width: 60%">
+          <h2>Quản lý điểm</h2>
+          <form id="student-form">
+            <div class="mb-3">
+              <label for="studentName" class="form-label">Mã sinh viên</label>
+              <input
+                type="text"
+                class="form-control"
+                id="studentName"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="courseName" class="form-label">Tên môn học</label>
+              <input
+                type="text"
+                class="form-control"
+                id="courseName"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="studentScore" class="form-label">Điểm số</label>
+              <input
+                type="number"
+                class="form-control"
+                min="0"
+                max="10"
+                step="0.1"
+                id="studentScore"
+                required
+              />
+            </div>
+            <button id="them-diem" type="submit" class="btn btn-primary">
+              Thêm / Cập nhật điểm
+            </button>
+          </form>
+          <table class="table mt-4" id="student-table">
+            <thead>
+              <tr>
+                <th>Mã sinh viên</th>
+                <th>Tên môn học</th>
+                <th>Điểm số</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <button
+            onclick="showReport()"
+            class="btn btn-primary float-end sticky-bottom"
+            id="generate-report"
+          >
+            Tạo báo cáo và thống kê
           </button>
-        </form>
-        <table class="table mt-4" id="student-table">
-          <thead>
-            <tr>
-              <th>Mã sinh viên</th>
-              <th>Tên môn học</th>
-              <th>Điểm số</th>
-              <th>Hành động</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-        <button onclick="showReport()" class="btn btn-primary float-end sticky-bottom">Tạo báo cáo và thống kê</button>
-      </section>
-      
+        </section>
 
-      <!-- Báo cáo và thống kê -->
-      <section id="bao-cao-thong-ke">
-        <button onclick="backToScore()" class="btn btn-primary mb-2 back">⇦ </button>
-        <h2>Báo cáo và thống kê</h2>
-        <button class="btn btn-primary mb-2" id="generate-report">
-          Tạo báo cáo
-        </button>
-        <div id="report-content"></div>
-        <button class="btn btn-info mt-2" id="export-pdf">Xuất PDF</button>
-        <button class="btn btn-success mt-2" id="export-excel">
-          Xuất Excel
-        </button>
-      </section>
+        <div class="img" style="width: 30%">
+          <img class="img-fluid rounded-5 mb-3" src="/img/anh1.jpg" alt="" />
+          <img class="img-fluid rounded-5 mb-3" src="/img/anh2.jpg" alt="" />
+          <img class="img-fluid rounded-5" src="/img/anh3.jpg" alt="" />
+        </div>
+      </div>
     </div>
+
+    <!-- Báo cáo và thống kê -->
+    <section id="bao-cao-thong-ke">
+      <button onclick="backToScore()" class="btn btn-primary mb-2 back">
+        ⭠
+      </button>
+      <h2>Báo cáo</h2>
+      <!-- <button class="btn btn-primary mb-2" id="generate-report">
+          Tạo báo cáo
+        </button> -->
+      <div id="report-content"></div>
+      <button class="btn btn-info mt-2" id="export-pdf">Xuất PDF</button>
+      <button class="btn btn-success mt-2" id="export-excel">Xuất Excel</button>
+      <br />
+
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+      <!-- biểu đồ -->
+      <div class="container my-5">
+        <h1 class="text-center mb-4">Thống kê bằng biểu đồ</h1>
+
+        <div class="d-flex justify-content-between">
+          <div class="chart-container" style="width: 50%">
+            <h2>Biểu đồ Cột</h2>
+            <canvas id="barChart"></canvas>
+          </div>
+          <div style="align-content: center">
+            <h2>Lorem ipsum dolor sit amet.</h2>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore?
+            </p>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div style="align-content: center">
+            <h2>Lorem ipsum dolor sit amet.</h2>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore?
+            </p>
+          </div>
+          <div class="chart-container" style="width: 50%">
+            <h2>Biểu đồ Đường</h2>
+            <canvas id="lineChart"></canvas>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div class="chart-container" style="width: 50%">
+            <h2>Biểu đồ Tròn</h2>
+            <canvas id="pieChart"></canvas>
+          </div>
+          <div style="align-content: center">
+            <h2>Lorem ipsum dolor sit amet.</h2>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore?
+            </p>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div style="align-content: center">
+            <h2>Lorem ipsum dolor sit amet.</h2>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore?
+            </p>
+          </div>
+          <div class="chart-container" style="width: 50%">
+            <h2>Biểu đồ Tháp</h2>
+            <canvas id="radarChart"></canvas>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div class="chart-container" style="width: 50%">
+            <h2>Biểu đồ cột chồng</h2>
+            <canvas id="stackedBarChart"></canvas>
+          </div>
+          <div style="align-content: center">
+            <h2>Lorem ipsum dolor sit amet.</h2>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore?
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <button
+        onclick="backToScore()"
+        class="btn btn-primary mt-2 float-end back w-100"
+      >
+        ⭠
+      </button>
+    </section>
+
+    <script src="script.js"></script>
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
     <!-- jQuery -->
@@ -113,131 +205,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.16/jspdf.plugin.autotable.min.js"></script>
     <!-- SheetJS (XLSX) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
-
-    <script>
-      // quan li diem====================================================================================================================
-      document.addEventListener("DOMContentLoaded", () => {
-        const studentForm = document.getElementById("student-form");
-        const studentTable = document
-          .getElementById("student-table")
-          .querySelector("tbody");
-        const reportContent = document.getElementById("report-content");
-
-        let students = JSON.parse(localStorage.getItem("students")) || [];
-
-        const renderTable = () => {
-          studentTable.innerHTML = "";
-          students.forEach((student, index) => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                    <td>${student.name}</td>
-                    <td>${student.course}</td>
-                    <td>${student.score}</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm" onclick="editStudent(${index})">Sửa</button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteStudent(${index})">Xóa</button>
-                    </td>
-                `;
-            studentTable.appendChild(row);
-          });
-        };
-
-        studentForm.addEventListener("submit", (event) => {
-          event.preventDefault();
-          const studentName = document
-            .getElementById("studentName")
-            .value.trim();
-          const courseName = document.getElementById("courseName").value.trim();
-          const studentScore = document
-            .getElementById("studentScore")
-            .value.trim();
-
-          if (studentName && studentScore && courseName) {
-            const existingIndex = students.findIndex(
-              (student) =>
-                student.name === studentName && student.course === courseName
-            );
-            if (existingIndex > -1) {
-              students[existingIndex].score = studentScore;
-            } else {
-              students.push({
-                name: studentName,
-                score: studentScore,
-                course: courseName,
-              });
-            }
-
-            localStorage.setItem("students", JSON.stringify(students));
-            renderTable();
-            studentForm.reset();
-          }
-        });
-
-        window.editStudent = (index) => {
-          const student = students[index];
-          document.getElementById("studentName").value = student.name;
-          document.getElementById("courseName").value = student.course;
-          document.getElementById("studentScore").value = student.score;
-        };
-
-        window.deleteStudent = (index) => {
-          students.splice(index, 1);
-          localStorage.setItem("students", JSON.stringify(students));
-          renderTable();
-        };
-
-        //report
-        document
-          .getElementById("generate-report")
-          .addEventListener("click", () => {
-            reportContent.innerHTML = "";
-            const totalScore = students.reduce(
-              (acc, student) => acc + parseFloat(student.score),
-              0
-            );
-            const avgScore =
-              students.length > 0 ? totalScore / students.length : 0;
-            const reportHTML = `
-                <p>Tổng số sinh viên: ${students.length}</p>
-                <p>Điểm trung bình: ${avgScore.toFixed(2)}</p>
-            `;
-            reportContent.innerHTML = reportHTML;
-          });
-
-        document.getElementById("export-pdf").addEventListener("click", () => {
-          const { jsPDF } = window.jspdf;
-          const doc = new jsPDF();
-          doc.text("Báo cáo tình hình học tập", 10, 10);
-
-          doc.autoTable({ html: "#student-table" });
-
-          // Lấy tọa độ y của dòng cuối cùng của bảng
-          const finalY = doc.autoTable.previous.finalY;
-
-          doc.text(reportContent.textContent, 10, finalY + 10);
-          doc.save("report.pdf");
-        });
-
-        document
-          .getElementById("export-excel")
-          .addEventListener("click", () => {
-            const wb = XLSX.utils.book_new();
-            const ws = XLSX.utils.json_to_sheet(students);
-            XLSX.utils.book_append_sheet(wb, ws, "Report");
-            XLSX.writeFile(wb, "report.xlsx");
-          });
-
-        renderTable();
-      });
-
-      function showReport(){
-        document.getElementById('quan-ly-diem').style.display='none';
-        document.getElementById('bao-cao-thong-ke').style.display='block';
-      }
-      function backToScore(){
-        document.getElementById('quan-ly-diem').style.display='block';
-        document.getElementById('bao-cao-thong-ke').style.display='none';
-      }
-    </script>
   </body>
 </html>
